@@ -1,0 +1,228 @@
+components:
+- components:
+  - components:
+    - components:
+      - layout_properties: {grid_position: 'QZLPVB,WDDMSM'}
+        name: experience
+        properties:
+          align: full
+          background: theme:Primary Overlay 2
+          bold: false
+          border: ''
+          enabled: true
+          font: ''
+          font_size: null
+          foreground: ''
+          include_placeholder: true
+          italic: false
+          items: []
+          placeholder: 'Choose from one of the following:'
+          role: outlined
+          spacing_above: small
+          spacing_below: small
+          tooltip: ''
+          underline: false
+          visible: true
+        type: DropDown
+      layout_properties: {grid_position: 'ELWRXR,UQVGNO'}
+      name: rich_text_2
+      properties:
+        align: left
+        background: ''
+        border: ''
+        content: |-
+          #### **Experience Level:**
+          ##### (What is your current experience level when it comes to working out?)
+        data: null
+        enable_slots: true
+        font: ''
+        font_size: null
+        foreground: ''
+        format: markdown
+        role: null
+        spacing_above: small
+        spacing_below: small
+        tooltip: ''
+        visible: true
+      type: RichText
+    - components:
+      - layout_properties: {grid_position: 'KBNOTT,ROOVJG'}
+        name: duration
+        properties:
+          align: full
+          background: theme:Primary Overlay 2
+          bold: false
+          border: ''
+          enabled: true
+          font: ''
+          font_size: null
+          foreground: ''
+          include_placeholder: true
+          italic: false
+          items: ['']
+          placeholder: 'Choose from one of the following:'
+          role: outlined
+          spacing_above: small
+          spacing_below: small
+          tooltip: ''
+          underline: false
+          visible: true
+        type: DropDown
+      layout_properties: {grid_position: 'XPSQEQ,ZGHVIC'}
+      name: rich_text_3
+      properties:
+        align: left
+        background: ''
+        border: ''
+        content: |-
+          #### **Duration:**
+          ##### (How long would you like your workout to be?)
+        data: null
+        enable_slots: true
+        font: ''
+        font_size: null
+        foreground: ''
+        format: markdown
+        role: null
+        spacing_above: small
+        spacing_below: small
+        tooltip: ''
+        visible: true
+      type: RichText
+    - components:
+      - event_bindings: {change: type_change}
+        layout_properties: {grid_position: 'DOKULE,WNWQGC'}
+        name: type
+        properties:
+          align: full
+          background: theme:Primary Overlay 2
+          bold: false
+          border: ''
+          enabled: true
+          font: ''
+          font_size: null
+          foreground: ''
+          include_placeholder: true
+          italic: false
+          items: ['']
+          placeholder: 'Choose from one of the following:'
+          role: outlined
+          spacing_above: small
+          spacing_below: small
+          tooltip: ''
+          underline: false
+          visible: true
+        type: DropDown
+      layout_properties: {grid_position: 'RSQUEA,AEJMFH'}
+      name: rich_text_4
+      properties:
+        align: left
+        background: ''
+        border: ''
+        content: |-
+          #### **Type:**
+          ##### (What type of workout would you like to conduct?)
+        data: null
+        enable_slots: true
+        font: ''
+        font_size: null
+        foreground: ''
+        format: markdown
+        role: null
+        spacing_above: small
+        spacing_below: small
+        tooltip: ''
+        visible: true
+      type: RichText
+    - components:
+      - layout_properties: {grid_position: 'CSQJNK,JBJEDZ'}
+        name: focus
+        properties:
+          align: full
+          background: theme:Primary Overlay 2
+          bold: false
+          border: ''
+          enabled: true
+          font: ''
+          font_size: null
+          foreground: ''
+          include_placeholder: true
+          italic: false
+          items: []
+          placeholder: 'Choose from one of the following:'
+          role: outlined
+          spacing_above: small
+          spacing_below: small
+          tooltip: ''
+          underline: false
+          visible: true
+        type: DropDown
+      layout_properties: {grid_position: 'GGOOJH,OYPRIM', slot: default}
+      name: focus_box
+      properties:
+        align: left
+        background: ''
+        border: ''
+        content: |-
+          #### **Focus:**
+          ##### (What muscle group would you like to target?)
+        data: null
+        enable_slots: true
+        font: ''
+        font_size: null
+        foreground: ''
+        format: markdown
+        role: null
+        spacing_above: small
+        spacing_below: small
+        tooltip: ''
+        visible: false
+      type: RichText
+    - layout_properties: {grid_position: 'FGZUMO,NQOAUY'}
+      name: spacer_1
+      properties: {height: 32}
+      type: Spacer
+    - event_bindings: {click: run_button_click}
+      layout_properties: {grid_position: 'IIENGQ,BFWGJQ', slot: default}
+      name: run_button
+      properties: {align: center, background: 'theme:Primary Overlay 2', bold: false, border: '', enabled: true, font: '', font_size: null, foreground: '', icon: '', icon_align: left, italic: false, role: elevated-button, spacing_above: small, spacing_below: small, text: Generate Workout, tooltip: '', underline: false, visible: true}
+      type: Button
+    layout_properties: {grid_position: 'WQGBWF,BEVJXU'}
+    name: prompt_card
+    properties: {background: '', border: '', col_spacing: medium, col_widths: '{}', foreground: '', role: null, spacing_above: small, spacing_below: small, tooltip: '', visible: true, wrap_on: mobile}
+    type: ColumnPanel
+  - components:
+    - layout_properties: {grid_position: 'YXGGYP,KPDAVU'}
+      name: title
+      properties: {align: center, background: '', bold: false, border: '', font: '', font_size: null, foreground: 'theme:Primary', icon: '', icon_align: left, italic: false, role: title, spacing_above: small, spacing_below: none, text: '', tooltip: '', underline: false, visible: true}
+      type: Label
+    - layout_properties: {grid_position: 'MRZGSR,RINGXZ', slot: default}
+      name: label_1
+      properties: {align: center, background: '', bold: false, border: '', font: '', font_size: null, foreground: '', icon: '', icon_align: left, italic: false, role: null, spacing_above: none, spacing_below: small, text: '', tooltip: '', underline: false, visible: true}
+      type: Label
+    - layout_properties: {grid_position: 'RCPTQZ,TDAVYD'}
+      name: spacer_2
+      properties: {height: 32}
+      type: Spacer
+    - event_bindings: {click: return_button_click}
+      layout_properties: {grid_position: 'ACPWWF,JMMIVW'}
+      name: return_button
+      properties: {align: center, background: 'theme:Primary Overlay 2', bold: false, border: '', enabled: true, font: '', font_size: null, foreground: '', icon: '', icon_align: left, italic: false, role: elevated-button, spacing_above: small, spacing_below: small, text: Return to Selection Menu, tooltip: '', underline: false, visible: true}
+      type: Button
+    - event_bindings: {click: try_again_button_click}
+      layout_properties: {grid_position: 'PKCNSK,AWWMBP'}
+      name: try_again_button
+      properties: {align: center, background: 'theme:Primary Overlay 2', bold: false, border: '', enabled: true, font: '', font_size: null, foreground: '', icon: '', icon_align: left, italic: false, role: elevated-button, spacing_above: small, spacing_below: small, text: Try Again, tooltip: '', underline: false, visible: true}
+      type: Button
+    layout_properties: {grid_position: 'JJWSEH,MZKUFR', slot: default}
+    name: output_card
+    properties: {background: '', border: '', col_spacing: medium, col_widths: '{}', foreground: '', role: null, spacing_above: small, spacing_below: small, tooltip: '', visible: false, wrap_on: mobile}
+    type: ColumnPanel
+  layout_properties: {slot: default}
+  name: outlined_card_1
+  properties: {background: '', border: '', col_spacing: medium, col_widths: '{}', foreground: '', role: null, spacing_above: small, spacing_below: small, tooltip: '', visible: true, wrap_on: mobile}
+  type: ColumnPanel
+container:
+  properties: {background: '', border: '', foreground: '', html: '', role: null, tooltip: '', visible: true}
+  type: HtmlTemplate
+is_package: true

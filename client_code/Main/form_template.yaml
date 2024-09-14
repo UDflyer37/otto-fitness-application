@@ -1,0 +1,527 @@
+components:
+- components:
+  - event_bindings: {tab_click: tabs_1_tab_click}
+    layout_properties: {full_width_row: true, grid_position: 'BTYUNY,VTQEKY'}
+    name: tabs_1
+    properties:
+      active_tab_index: 0
+      align: center
+      background: null
+      bold: null
+      font: ''
+      font_size: '12'
+      foreground: theme:Primary
+      italic: null
+      role: null
+      spacing_above: large
+      spacing_below: none
+      tab_titles: [Plate Calc, Weight Calc, Workout]
+      visible: true
+    type: form:C6ZZPAPN4YYF5NVJ:Tabs
+  - data_bindings: []
+    event_bindings: {change: workout_drop_down_change}
+    layout_properties: {full_width_row: false, grid_position: 'FAXVPR,XYAGZX', slot: title}
+    name: workout_drop_down
+    properties:
+      align: full
+      background: theme:Primary Overlay 2
+      bold: false
+      border: ''
+      enabled: true
+      font: ''
+      font_size: null
+      foreground: ''
+      include_placeholder: true
+      italic: false
+      items: []
+      placeholder: Select Workout
+      role: null
+      spacing_above: large
+      spacing_below: large
+      tooltip: ''
+      underline: false
+      visible: false
+    type: DropDown
+  - components:
+    - event_bindings: {click: squatober_chip_click}
+      layout_properties: {}
+      name: squatober_chip
+      properties: {background: null, close_icon: false, foreground: null, icon: null, spacing_above: small, spacing_below: small, text: Squatober, visible: true}
+      type: form:C6ZZPAPN4YYF5NVJ:Chip
+    - event_bindings: {click: bench_chip_click}
+      layout_properties: {grid_position: 'BDTQCV,GBVERQ'}
+      name: bench_chip
+      properties: {background: null, close_icon: false, foreground: null, icon: null, spacing_above: small, spacing_below: small, text: Bench, visible: true}
+      type: form:C6ZZPAPN4YYF5NVJ:Chip
+    - event_bindings: {click: squat_chip_click}
+      layout_properties: {grid_position: 'BDTQCV,ZFIFNP'}
+      name: squat_chip
+      properties: {background: null, close_icon: false, foreground: null, icon: null, spacing_above: small, spacing_below: small, text: Squat, visible: true}
+      type: form:C6ZZPAPN4YYF5NVJ:Chip
+    - event_bindings: {click: deadlift_chip_click}
+      layout_properties: {grid_position: 'BDTQCV,YHUOWA'}
+      name: deadlift_chip
+      properties: {background: '', close_icon: false, foreground: null, icon: null, spacing_above: small, spacing_below: small, text: Deadlift, visible: true}
+      type: form:C6ZZPAPN4YYF5NVJ:Chip
+    - event_bindings: {click: freeweights_chip_click}
+      layout_properties: {}
+      name: freeweights_chip
+      properties: {background: null, close_icon: false, foreground: null, icon: null, spacing_above: small, spacing_below: small, text: Free Weights Only, visible: true}
+      type: form:C6ZZPAPN4YYF5NVJ:Chip
+    layout_properties: {grid_position: 'FYOMBV,GTUOCK'}
+    name: chip_panel
+    properties: {align: center, background: '', border: '', foreground: '', role: null, spacing: medium, spacing_above: small, spacing_below: small, tooltip: '', visible: false}
+    type: FlowPanel
+  - layout_properties: {grid_position: 'VCUMPD,DPKGYB'}
+    name: rich_text_8
+    properties: {align: left, background: '', border: '', content: '***', data: null, enable_slots: true, font: '', font_size: null, foreground: '', format: markdown, role: null, spacing_above: none, spacing_below: none, tooltip: '', visible: true}
+    type: RichText
+  - components:
+    - layout_properties: {grid_position: 'JZVYOI,GVBUOG'}
+      name: label_3
+      properties: {align: center, background: '', bold: false, border: '', font: '', font_size: null, foreground: '', icon: 'fa:calculator', icon_align: left, italic: false, role: input-prompt, spacing_above: small, spacing_below: small, text: Determine the Plates Needed for a Set Weight, tooltip: '', underline: false, visible: true}
+      type: Label
+    - components:
+      - components:
+        - event_bindings: {pressed_enter: max_weight_input_pressed_enter}
+          layout_properties: {slot: max, width: 305}
+          name: max_weight_input
+          properties: {align: center, background: '', bold: false, border: '', enabled: true, font: '', font_size: null, foreground: '', hide_text: false, italic: false, placeholder: Weight, role: outlined, spacing_above: small, spacing_below: small, text: '', tooltip: '', type: number, underline: false, visible: true}
+          type: TextBox
+        layout_properties: {grid_position: 'RREHUY,AWDGTT'}
+        name: rich_text_1
+        properties: {align: center, background: '', border: '', content: '{max} lbs.', data: null, enable_slots: true, font: '', font_size: null, foreground: '', format: markdown, role: null, spacing_above: small, spacing_below: small, tooltip: '', visible: true}
+        type: RichText
+      - components:
+        - event_bindings: {pressed_enter: percent_input_pressed_enter}
+          layout_properties: {slot: percent, width: 305}
+          name: percent_input
+          properties: {align: center, background: '', bold: false, border: '', enabled: true, font: '', font_size: null, foreground: '', hide_text: false, italic: false, placeholder: Working Percent, role: outlined, spacing_above: small, spacing_below: small, text: '100', tooltip: '', type: number, underline: false, visible: true}
+          type: TextBox
+        layout_properties: {grid_position: 'RREHUY,OBPMZJ'}
+        name: rich_text_2
+        properties: {align: center, background: '', border: '', content: '{percent} %&nbsp;&nbsp;&nbsp;&nbsp;', data: null, enable_slots: true, font: '', font_size: null, foreground: '', format: markdown, role: null, spacing_above: small, spacing_below: small, tooltip: '', visible: true}
+        type: RichText
+      - layout_properties: {full_width_row: false, grid_position: 'NCZHDW,ACWAVP'}
+        name: spacer_2
+        properties: {height: 32}
+        type: Spacer
+      - event_bindings: {click: calculate_button_click}
+        layout_properties: {full_width_row: false, grid_position: 'NCZHDW,UKTIEH'}
+        name: calculate_button
+        properties: {align: full, background: '', bold: false, border: '', enabled: true, font: '', font_size: null, foreground: '', icon: 'fa:cogs', icon_align: left, italic: false, role: filled-button, spacing_above: small, spacing_below: small, text: Calculate, tooltip: '', underline: false, visible: true}
+        type: Button
+      - layout_properties: {full_width_row: false, grid_position: 'NCZHDW,BZJNEM'}
+        name: spacer_1
+        properties: {height: 32}
+        type: Spacer
+      - layout_properties: {grid_position: 'QPNGTJ,SMMTGD'}
+        name: disclaimer
+        properties: {align: center, background: '', bold: false, border: '', font: '', font_size: 10, foreground: '', icon: '', icon_align: left, italic: false, role: null, spacing_above: none, spacing_below: none, text: '', tooltip: '', underline: false, visible: true}
+        type: Label
+      layout_properties: {grid_position: 'DEKMLN,SERNCY'}
+      name: outlined_card_1
+      properties: {background: '', border: '', col_spacing: medium, col_widths: '{"ACWAVP":20,"UKTIEH":20,"BZJNEM":20}', foreground: '', role: elevated-card, spacing_above: small, spacing_below: small, tooltip: '', visible: true, wrap_on: mobile}
+      type: ColumnPanel
+    - components:
+      - layout_properties: {grid_position: 'WQFBEE,XXLUNK'}
+        name: output
+        properties: {align: center, background: '', bold: false, border: '', font: '', font_size: null, foreground: '', icon: '', icon_align: left, italic: false, role: null, spacing_above: large, spacing_below: large, text: '', tooltip: '', underline: false, visible: true}
+        type: Label
+      layout_properties: {grid_position: 'LAXFJJ,NQFIAS'}
+      name: output_card
+      properties: {background: '', border: '', col_spacing: medium, col_widths: '{}', foreground: '', role: tonal-card, spacing_above: small, spacing_below: small, tooltip: '', visible: false, wrap_on: mobile}
+      type: ColumnPanel
+    layout_properties: {grid_position: 'PYODPJ,UGKUGJ'}
+    name: basic_plate_math_card
+    properties: {background: '', border: '', col_spacing: medium, col_widths: '{}', foreground: '', role: null, spacing_above: small, spacing_below: small, tooltip: '', visible: true, wrap_on: mobile}
+    type: ColumnPanel
+  - components:
+    - layout_properties: {grid_position: 'FCVIKH,WHODWX'}
+      name: label_4
+      properties: {align: center, background: '', bold: false, border: '', font: '', font_size: null, foreground: '', icon: 'fa:calculator', icon_align: left, italic: false, role: input-prompt, spacing_above: small, spacing_below: small, text: Determine the Total Weight on the Bar (input number of plates on each side), tooltip: '', underline: false, visible: true}
+      type: Label
+    - components:
+      - layout_properties: {grid_position: 'GPXTRJ,DGCAGA'}
+        name: spacer_3
+        properties: {height: 32}
+        type: Spacer
+      - event_bindings: {change: text_box_1_change}
+        layout_properties: {grid_position: 'GPXTRJ,SXRHXB PXACXB,IQQOFR'}
+        name: text_box_1
+        properties: {align: center, background: '', bold: false, border: '', enabled: true, font: '', font_size: null, foreground: '', hide_text: false, italic: false, placeholder: '0', role: outlined, spacing_above: small, spacing_below: small, text: '', tooltip: '', type: number, underline: false, visible: true}
+        type: TextBox
+      - layout_properties: {grid_position: 'GPXTRJ,SXRHXB PXACXB,BRMHGZ'}
+        name: text_box_45
+        properties: {align: left, background: '', bold: false, border: '', font: '', font_size: null, foreground: '', icon: '', icon_align: left, italic: false, role: null, spacing_above: small, spacing_below: small, text: '', tooltip: '', underline: false, visible: true}
+        type: Label
+      - event_bindings: {change: text_box_4_change}
+        layout_properties: {grid_position: 'GPXTRJ,SXRHXB PXACXB,XKVCPC'}
+        name: text_box_4
+        properties: {align: center, background: '', bold: false, border: '', enabled: true, font: '', font_size: null, foreground: '', hide_text: false, italic: false, placeholder: '0', role: outlined, spacing_above: small, spacing_below: small, text: '', tooltip: '', type: number, underline: false, visible: true}
+        type: TextBox
+      - layout_properties: {grid_position: 'GPXTRJ,SXRHXB PXACXB,BUSITF'}
+        name: text_box_10
+        properties: {align: left, background: '', bold: false, border: '', font: '', font_size: null, foreground: '', icon: '', icon_align: left, italic: false, role: null, spacing_above: small, spacing_below: small, text: '', tooltip: '', underline: false, visible: true}
+        type: Label
+      - event_bindings: {change: text_box_2_change}
+        layout_properties: {grid_position: 'GPXTRJ,SXRHXB DVJKVP,LPPQMG'}
+        name: text_box_2
+        properties: {align: center, background: '', bold: false, border: '', enabled: true, font: '', font_size: null, foreground: '', hide_text: false, italic: false, placeholder: '0', role: outlined, spacing_above: small, spacing_below: small, text: '', tooltip: '', type: number, underline: false, visible: true}
+        type: TextBox
+      - layout_properties: {grid_position: 'GPXTRJ,SXRHXB DVJKVP,ZXQWEL'}
+        name: text_box_35
+        properties: {align: left, background: '', bold: false, border: '', font: '', font_size: null, foreground: '', icon: '', icon_align: left, italic: false, role: null, spacing_above: small, spacing_below: small, text: '', tooltip: '', underline: false, visible: true}
+        type: Label
+      - event_bindings: {change: text_box_6_change}
+        layout_properties: {grid_position: 'GPXTRJ,SXRHXB DVJKVP,ECJWCR'}
+        name: text_box_6
+        properties: {align: center, background: '', bold: false, border: '', enabled: true, font: '', font_size: null, foreground: '', hide_text: false, italic: false, placeholder: '0', role: outlined, spacing_above: small, spacing_below: small, text: '', tooltip: '', type: number, underline: false, visible: true}
+        type: TextBox
+      - layout_properties: {grid_position: 'GPXTRJ,SXRHXB DVJKVP,UTGBZK'}
+        name: text_box_5
+        properties: {align: left, background: '', bold: false, border: '', font: '', font_size: null, foreground: '', icon: '', icon_align: left, italic: false, role: null, spacing_above: small, spacing_below: small, text: '', tooltip: '', underline: false, visible: true}
+        type: Label
+      - event_bindings: {change: text_box_3_change}
+        layout_properties: {grid_position: 'GPXTRJ,SXRHXB QUHHLY,YDDEJA'}
+        name: text_box_3
+        properties: {align: center, background: '', bold: false, border: '', enabled: true, font: '', font_size: null, foreground: '', hide_text: false, italic: false, placeholder: '0', role: outlined, spacing_above: small, spacing_below: small, text: '', tooltip: '', type: number, underline: false, visible: true}
+        type: TextBox
+      - layout_properties: {grid_position: 'GPXTRJ,SXRHXB QUHHLY,DASQQO'}
+        name: text_box_25
+        properties: {align: left, background: '', bold: false, border: '', font: '', font_size: null, foreground: '', icon: '', icon_align: left, italic: false, role: null, spacing_above: small, spacing_below: small, text: '', tooltip: '', underline: false, visible: true}
+        type: Label
+      - event_bindings: {change: text_box_7_change}
+        layout_properties: {grid_position: 'GPXTRJ,SXRHXB QUHHLY,GXNCDG'}
+        name: text_box_7
+        properties: {align: center, background: '', bold: false, border: '', enabled: true, font: '', font_size: null, foreground: '', hide_text: false, italic: false, placeholder: '0', role: outlined, spacing_above: small, spacing_below: small, text: '', tooltip: '', type: number, underline: false, visible: true}
+        type: TextBox
+      - layout_properties: {grid_position: 'GPXTRJ,SXRHXB QUHHLY,XTQHKV'}
+        name: text_box_2_5
+        properties: {align: left, background: '', bold: false, border: '', font: '', font_size: null, foreground: '', icon: '', icon_align: left, italic: false, role: null, spacing_above: small, spacing_below: small, text: '', tooltip: '', underline: false, visible: true}
+        type: Label
+      - layout_properties: {grid_position: 'GPXTRJ,DZWRGI'}
+        name: spacer_4
+        properties: {height: 32}
+        type: Spacer
+      layout_properties: {grid_position: 'STSVEI,MARUDQ'}
+      name: card_1
+      properties: {background: '', border: '', col_spacing: medium, col_widths: '{"IQQOFR":17,"BRMHGZ":23,"LPPQMG":17,"ZXQWEL":23,"YDDEJA":17,"DASQQO":23,"XKVCPC":15,"BUSITF":12,"ECJWCR":15,"UTGBZK":12,"GXNCDG":15,"XTQHKV":12,"DGCAGA":10,"SXRHXB":60,"DZWRGI":10}', foreground: '', role: elevated-card, spacing_above: large, spacing_below: small, tooltip: '', visible: true, wrap_on: never}
+      type: ColumnPanel
+    - components:
+      - components:
+        - layout_properties: {grid_position: 'AWSWJY,MQKGZP', slot: text}
+          name: weight_calc_output
+          properties: {align: center, background: '', bold: true, border: '', font: '20', font_size: null, foreground: '', icon: '', icon_align: left, italic: false, role: null, spacing_above: small, spacing_below: small, text: '0', tooltip: '', underline: false, visible: true}
+          type: Label
+        layout_properties: {grid_position: 'POKPID,JXBLRP'}
+        name: rich_text_4
+        properties:
+          align: center
+          background: ''
+          border: ''
+          content: |-
+            The total weight is: {text} lbs.
+            (including weight of bar)
+          data: null
+          enable_slots: true
+          font: ''
+          font_size: null
+          foreground: ''
+          format: markdown
+          role: null
+          spacing_above: large
+          spacing_below: small
+          tooltip: ''
+          visible: true
+        type: RichText
+      layout_properties: {grid_position: 'IZRDFS,DVGMWX'}
+      name: weight_calc_output_card
+      properties: {background: '', border: '', col_spacing: medium, col_widths: '{}', foreground: '', role: tonal-card, spacing_above: small, spacing_below: small, tooltip: '', visible: true, wrap_on: mobile}
+      type: ColumnPanel
+    layout_properties: {grid_position: 'XGJAYO,YEVJBL'}
+    name: weight_calc_card
+    properties: {background: '', border: '', col_spacing: medium, col_widths: '{}', foreground: '', role: null, spacing_above: small, spacing_below: small, tooltip: '', visible: false, wrap_on: mobile}
+    type: ColumnPanel
+  - components:
+    - components:
+      - layout_properties: {grid_position: 'ZYXMWI,RAPNSV', slot: text}
+        name: label_6
+        properties: {align: center, background: '', bold: false, border: '', font: '', font_size: null, foreground: '', icon: 'fa:calculator', icon_align: left, italic: false, role: input-prompt, spacing_above: none, spacing_below: none, text: Select a Workout from the Drop-Down Menu, tooltip: '', underline: false, visible: true}
+        type: Label
+      - event_bindings: {click: max_calc_link_click}
+        layout_properties: {slot: link}
+        name: max_calc_link
+        properties: {align: left, background: '', bold: false, border: '', col_spacing: medium, col_widths: '', font: '', font_size: null, foreground: '', icon: '', icon_align: left, italic: false, role: null, spacing_above: none, spacing_below: none, text: 'Don''t know your max? Click Here!', tooltip: '', underline: false, url: '', visible: true, wrap_on: mobile}
+        type: Link
+      layout_properties: {grid_position: 'RUZGMK,VPKEFX'}
+      name: rich_text_6
+      properties:
+        align: center
+        background: ''
+        border: ''
+        content: |-
+          {text}
+          {link}
+        data: null
+        enable_slots: true
+        font: ''
+        font_size: null
+        foreground: ''
+        format: markdown
+        role: null
+        spacing_above: none
+        spacing_below: none
+        tooltip: ''
+        visible: true
+      type: RichText
+    - components:
+      - components:
+        - layout_properties: {grid_position: 'VCSJUJ,KHBRTW', slot: bench}
+          name: max_bench
+          properties: {align: center, background: '', bold: false, border: '', enabled: true, font: '', font_size: null, foreground: '', hide_text: false, italic: false, placeholder: Max Bench Press, role: outlined, spacing_above: small, spacing_below: small, text: '', tooltip: '', type: number, underline: false, visible: true}
+          type: TextBox
+        - layout_properties: {slot: squat}
+          name: max_squat
+          properties: {align: center, background: '', bold: false, border: '', enabled: true, font: '', font_size: null, foreground: '', hide_text: false, italic: false, placeholder: Max Squat, role: outlined, spacing_above: small, spacing_below: small, text: '', tooltip: '', type: number, underline: false, visible: true}
+          type: TextBox
+        - layout_properties: {slot: deadlift}
+          name: max_deadlift
+          properties: {align: center, background: '', bold: false, border: '', enabled: true, font: '', font_size: null, foreground: '', hide_text: false, italic: false, placeholder: Max Deadlift, role: outlined, spacing_above: small, spacing_below: small, text: '', tooltip: '', type: number, underline: false, visible: true}
+          type: TextBox
+        - event_bindings: {click: calculate_workout_button_click}
+          layout_properties: {slot: calculate, width: 300}
+          name: calculate_workout_button
+          properties: {align: full, background: '', bold: false, border: '', enabled: true, font: '', font_size: null, foreground: '', icon: 'fa:cogs', icon_align: left, italic: false, role: filled-button, spacing_above: large, spacing_below: small, text: Calculate, tooltip: '', underline: false, visible: true}
+          type: Button
+        - layout_properties: {grid_position: 'ZVVIGY,XMNRSA'}
+          name: disclaimer_workout
+          properties: {align: center, background: '', bold: false, border: '', font: '', font_size: 10, foreground: '', icon: '', icon_align: left, italic: false, role: null, spacing_above: small, spacing_below: small, text: Workouts are based off a percentage of your working max. Working max is defined as 90% of ORM. Plates are for each side., tooltip: '', underline: false, visible: false}
+          type: Label
+        - event_bindings: {click: random_workout_link_click}
+          layout_properties: {slot: link}
+          name: random_workout_link
+          properties: {align: left, background: '', bold: false, border: '', col_spacing: medium, col_widths: '', font: '', font_size: null, foreground: '', icon: '', icon_align: left, italic: false, role: selected, spacing_above: small, spacing_below: small, text: Suprise me... I'm feeling spicy!, tooltip: '', underline: false, url: '', visible: true, wrap_on: mobile}
+          type: Link
+        layout_properties: {grid_position: 'FVONEF,GFSFFS'}
+        name: rich_text_5
+        properties:
+          align: center
+          background: ''
+          border: ''
+          content: |-
+            {bench} lbs.
+            {squat} lbs.
+            {deadlift} lbs.
+            {calculate}
+            {link}
+          data: null
+          enable_slots: true
+          font: ''
+          font_size: null
+          foreground: ''
+          format: markdown
+          role: null
+          spacing_above: small
+          spacing_below: small
+          tooltip: ''
+          visible: true
+        type: RichText
+      layout_properties: {grid_position: 'PXBDIQ,RFMUBG'}
+      name: outlined_card_2
+      properties: {background: '', border: '', col_spacing: medium, col_widths: '{}', foreground: '', role: elevated-card, spacing_above: small, spacing_below: small, tooltip: '', visible: true, wrap_on: mobile}
+      type: ColumnPanel
+    - layout_properties: {grid_position: 'FKZYKW,URFBNL'}
+      name: spacer_5
+      properties: {height: 8}
+      type: Spacer
+    - event_bindings: {show: repeating_panel_1_show}
+      layout_properties: {grid_position: 'HQPKZI,NBJWWO'}
+      name: repeating_panel_1
+      properties: {background: '', border: '', foreground: '', item_template: Main.ItemTemplateWorkout, items: null, role: null, spacing_above: small, spacing_below: small, tooltip: '', visible: false}
+      type: RepeatingPanel
+    layout_properties: {grid_position: 'EWJXNB,UNDHQV'}
+    name: planned_workout_card
+    properties: {background: '', border: '', col_spacing: medium, col_widths: '{}', foreground: '', role: null, spacing_above: small, spacing_below: small, tooltip: '', visible: false, wrap_on: mobile}
+    type: ColumnPanel
+  - components:
+    - layout_properties: {slot: text}
+      name: label_7
+      properties: {align: center, background: '', bold: false, border: '', font: '', font_size: 12, foreground: '', icon: '', icon_align: left, italic: false, role: null, spacing_above: small, spacing_below: none, text: 'Support the creator! This is a totally FREE resource, but if you enjoyed the app and would like to send some support, you can Venmo using the link below:', tooltip: '', underline: false, visible: true}
+      type: Label
+    - layout_properties: {slot: link}
+      name: link_1
+      properties: {align: left, background: '', bold: false, border: '', col_spacing: medium, col_widths: '', font: '', font_size: 14, foreground: '', icon: '', icon_align: left, italic: false, role: null, spacing_above: none, spacing_below: small, text: '@Ottoa98', tooltip: '', underline: false, url: 'https://venmo.com/u/Ottoa98', visible: true, wrap_on: mobile}
+      type: Link
+    - event_bindings: {click: feedback_button_click}
+      layout_properties: {grid_position: 'HRNUST,XSQGAR', slot: feedback, width: 217.922}
+      name: feedback_button
+      properties: {align: center, background: '', bold: false, border: '', enabled: true, font: '', font_size: null, foreground: '', icon: '', icon_align: left, italic: false, role: null, spacing_above: none, spacing_below: small, text: Provide Feedback!, tooltip: '', underline: false, visible: true}
+      type: Button
+    layout_properties: {full_width_row: true, grid_position: 'GYBBVR,ACSLGZ'}
+    name: rich_text_7
+    properties:
+      align: center
+      background: theme:Dark Overlay 1
+      border: ''
+      content: |-
+        {feedback}
+        {text} {link}
+      data: null
+      enable_slots: true
+      font: ''
+      font_size: null
+      foreground: ''
+      format: markdown
+      role: tonal-card
+      spacing_above: large
+      spacing_below: small
+      tooltip: ''
+      visible: true
+    type: RichText
+  layout_properties: {slot: default}
+  name: content_panel
+  properties: {col_widths: '{}'}
+  type: ColumnPanel
+- components:
+  - components:
+    - layout_properties: {full_width_row: false, grid_position: 'JYUBJC,OCKACB'}
+      name: timer
+      properties: {align: center, background: '', bold: true, border: '', font: '', font_size: 20, foreground: '', icon: '', icon_align: left, italic: false, role: null, spacing_above: none, spacing_below: none, text: '00 : 00', tooltip: '', underline: false, visible: true}
+      type: Label
+    - event_bindings: {click: timer_button_click}
+      layout_properties: {full_width_row: false, grid_position: 'JYUBJC,ANTVFH'}
+      name: timer_button
+      properties: {align: full, background: '#a6f2bd', bold: false, border: '', enabled: true, font: '', font_size: 12, foreground: '', icon: '', icon_align: left, italic: false, role: tonal-button, spacing_above: none, spacing_below: none, text: Start, tooltip: '', underline: false, visible: true}
+      type: Button
+    - event_bindings: {click: timer_reset_button_click}
+      layout_properties: {full_width_row: false, grid_position: 'JYUBJC,TMXNGL'}
+      name: timer_reset_button
+      properties: {align: full, background: '#a9c6f4', bold: false, border: '', enabled: true, font: '', font_size: 12, foreground: '', icon: '', icon_align: left, italic: false, role: tonal-button, spacing_above: none, spacing_below: none, text: Reset, tooltip: '', underline: false, visible: true}
+      type: Button
+    layout_properties: {grid_position: 'HFOOPM,BAWVDS', slot: timer, width: 322.354}
+    name: timer_card
+    properties: {background: '', border: '', col_spacing: medium, col_widths: '{"OCKACB":20,"ANTVFH":20,"TMXNGL":20}', foreground: '', role: null, spacing_above: large, spacing_below: none, tooltip: '', visible: false, wrap_on: never}
+    type: ColumnPanel
+  layout_properties: {slot: nav-right}
+  name: navbar_links
+  properties: {align: left, background: '', border: '', foreground: '', role: null, spacing: medium, spacing_above: none, spacing_below: none, tooltip: '', visible: true}
+  type: FlowPanel
+- components:
+  - event_bindings: {click: AI_workout_link_click}
+    layout_properties: {grid_position: 'UJRGDJ,QIZEKU'}
+    name: AI_workout_link
+    properties: {align: center, background: '', bold: false, border: '', col_spacing: medium, col_widths: '', font: '', font_size: null, foreground: '', icon: '', icon_align: left, italic: false, role: null, spacing_above: small, spacing_below: large, text: AI Generated Workout (beta), tooltip: '', underline: false, url: '', visible: false, wrap_on: mobile}
+    type: Link
+  - layout_properties: {full_width_row: false, grid_position: 'ZCMCNK,DLDFOU'}
+    name: working_max_switch
+    properties: {background: null, bold: false, checked: false, checked_color: 'theme:Primary', enabled: true, font_size: 14, foreground: null, italic: null, spacing_above: large, spacing_below: large, text_post: Working Max, text_pre: True Max, tooltip: '', visible: true}
+    type: form:C6ZZPAPN4YYF5NVJ:Switch
+  - layout_properties: {grid_position: 'PGSOMI,KZOCIF'}
+    name: label_2
+    properties: {align: left, background: '', bold: false, border: '', font: '', font_size: null, foreground: '', icon: '', icon_align: left, italic: false, role: null, spacing_above: small, spacing_below: small, text: Bar Weight, tooltip: '', underline: false, visible: true}
+    type: Label
+  - components:
+    - layout_properties: {grid_position: 'MQCZXO,IMBZWF', slot: value, width: 61}
+      name: barWeight_text_box
+      properties: {align: center, background: '', bold: false, border: '', enabled: true, font: '', font_size: null, foreground: '', hide_text: false, italic: false, placeholder: '', role: null, spacing_above: small, spacing_below: small, text: '45', tooltip: '', type: number, underline: false, visible: true}
+      type: TextBox
+    layout_properties: {grid_position: 'NAYEKX,TDLPPF'}
+    name: rich_text_3
+    properties: {align: left, background: '', border: '', content: '{value} lbs.', data: null, enable_slots: true, font: '', font_size: null, foreground: '', format: markdown, role: null, spacing_above: small, spacing_below: small, tooltip: '', visible: true}
+    type: RichText
+  - layout_properties: {grid_position: 'RKYQQR,BAQLNV'}
+    name: label_1
+    properties:
+      align: left
+      background: ''
+      bold: false
+      border: ''
+      font: ''
+      font_size: null
+      foreground: ''
+      icon: ''
+      icon_align: left
+      italic: false
+      role: null
+      spacing_above: small
+      spacing_below: small
+      text: |
+        Plates Available
+      tooltip: ''
+      underline: false
+      visible: true
+    type: Label
+  - components:
+    - layout_properties: {grid_position: 'TGXVEF,OZRVIG'}
+      name: drop_down_available_weights
+      properties:
+        align: full
+        background: ''
+        bold: false
+        border: ''
+        enabled: false
+        font: ''
+        font_size: null
+        foreground: ''
+        include_placeholder: true
+        italic: false
+        items: ['']
+        placeholder: ''
+        role: null
+        spacing_above: small
+        spacing_below: small
+        tooltip: ''
+        underline: false
+        visible: true
+      type: DropDown
+    - event_bindings: {change: check_box_45_change}
+      layout_properties: {full_width_row: false, grid_position: 'OXMWUV,ZYURGN', row_background: ''}
+      name: check_box_45
+      properties: {align: left, allow_indeterminate: false, background: '', bold: false, border: '', checked: false, enabled: true, font: '', font_size: null, foreground: '', italic: false, role: null, spacing_above: small, spacing_below: small, text: 45 lbs., tooltip: '', underline: false, visible: true}
+      type: CheckBox
+    - event_bindings: {change: check_box_35_change}
+      layout_properties: {grid_position: 'RBKNAQ,NGOIAG'}
+      name: check_box_35
+      properties: {align: left, allow_indeterminate: false, background: '', bold: false, border: '', checked: false, enabled: true, font: '', font_size: null, foreground: '', italic: false, role: null, spacing_above: small, spacing_below: small, text: 35 lbs., tooltip: '', underline: false, visible: true}
+      type: CheckBox
+    - event_bindings: {change: check_box_25_change}
+      layout_properties: {grid_position: 'NRJXPY,BJEUGZ'}
+      name: check_box_25
+      properties: {align: left, allow_indeterminate: false, background: '', bold: false, border: '', checked: false, enabled: true, font: '', font_size: null, foreground: '', italic: false, role: null, spacing_above: small, spacing_below: small, text: 25 lbs., tooltip: '', underline: false, visible: true}
+      type: CheckBox
+    - event_bindings: {change: check_box_10_change}
+      layout_properties: {grid_position: 'UQPFVK,XBRJUU'}
+      name: check_box_10
+      properties: {align: left, allow_indeterminate: false, background: '', bold: false, border: '', checked: false, enabled: true, font: '', font_size: null, foreground: '', italic: false, role: null, spacing_above: small, spacing_below: small, text: 10 lbs., tooltip: '', underline: false, visible: true}
+      type: CheckBox
+    - event_bindings: {change: check_box_5_change}
+      layout_properties: {grid_position: 'PJJFRV,CVXFWG'}
+      name: check_box_5
+      properties: {align: left, allow_indeterminate: false, background: '', bold: false, border: '', checked: false, enabled: true, font: '', font_size: null, foreground: '', italic: false, role: null, spacing_above: small, spacing_below: small, text: 5 lbs., tooltip: '', underline: false, visible: true}
+      type: CheckBox
+    - event_bindings: {change: check_box_2_5_change}
+      layout_properties: {grid_position: 'LAPVCM,PRQRYE'}
+      name: check_box_2_5
+      properties: {align: left, allow_indeterminate: false, background: '', bold: false, border: '', checked: false, enabled: true, font: '', font_size: null, foreground: '', italic: false, role: null, spacing_above: small, spacing_below: small, text: 2.5 lbs., tooltip: '', underline: false, visible: true}
+      type: CheckBox
+    layout_properties: {full_width_row: false, grid_position: 'HRSGWI,POUCNE'}
+    name: plates_available_card
+    properties: {background: '', border: '', col_spacing: medium, col_widths: '{"LHHUVF":44}', foreground: '', role: tonal-card, spacing_above: small, spacing_below: small, tooltip: '', visible: true, wrap_on: mobile}
+    type: ColumnPanel
+  layout_properties: {slot: left-nav}
+  name: column_panel_1
+  properties: {background: '', border: '', col_spacing: medium, col_widths: '{}', foreground: '', role: null, spacing_above: small, spacing_below: small, tooltip: '', visible: true, wrap_on: mobile}
+  type: ColumnPanel
+- event_bindings: {tick: timer_1_tick}
+  name: timer_1
+  properties: {interval: 1}
+  type: Timer
+- layout_properties: {expand: false, grid_position: 'YATETU,RYGMVC', slot: title, width: null}
+  name: label_5
+  properties: {align: left, background: '', bold: false, border: '', font: '', font_size: 20, foreground: 'theme:Primary', icon: '', icon_align: left, italic: false, role: input-prompt, spacing_above: none, spacing_below: none, text: '', tooltip: '', underline: false, visible: true}
+  type: Label
+container:
+  properties: {html: '@theme:standard-page.html'}
+  type: HtmlTemplate
+is_package: true
