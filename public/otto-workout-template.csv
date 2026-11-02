@@ -1,0 +1,8 @@
+workout,order,exercise,sets,reps,percent,lift,notes,superset
+Squat Day,1,Back Squat,5,5,80,squat,Last set is a top single,false
+Squat Day,2,Romanian Deadlift,3,8,,deadlift,,false
+Squat Day,3,Bulgarian Split Squat,3,10,,squat,,false
+Squat Day,4,Plank,3,45,,,Hold each for 45 seconds,false
+Pull Day,1,Barbell Row,4,8,,,Alternate with pull-ups,true
+Pull Day,2,Pull-Up,4,6,,,Alternate with rows,true
+Pull Day,3,Hammer Curl,3,12,,,Slow on the way down,false

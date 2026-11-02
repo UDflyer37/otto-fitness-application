@@ -1,0 +1,15 @@
+node_modules
+.next
+out
+.vercel
+.env*.local
+*.tsbuildinfo
+next-env.d.ts
+.DS_Store
+/freebuff-sites-build/
+/.open-next/
+/.wrangler/
+
+# Local captures from development, not used by the app.
+/screens/
+/screenshots/
