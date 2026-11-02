@@ -100,15 +100,18 @@ Production lives at **https://otto-fitness.vercel.app**, in the `otto-fitness` p
 The app is a zero-config Next.js project, so there is nothing to configure: framework preset
 Next.js, build command `next build`, output `.next`.
 
-The project is deployed from this folder with the CLI, not from Git, because the repository has no
-remote yet. To ship a change:
+The project is connected to **[UDflyer37/otto-fitness-application](https://github.com/UDflyer37/otto-fitness-application)**,
+so a push to `main` builds and promotes a production deployment on its own:
+
+```bash
+git push origin main
+```
+
+To ship the working folder without a commit, deploy straight from disk instead:
 
 ```bash
 npx vercel --prod --scope alexander-ottos-projects --project otto-fitness
 ```
-
-Once the repository is on GitHub, link it in Vercel (**Project → Settings → Git**) and future
-pushes to the default branch will deploy on their own.
 
 No environment variables are required. Everything runs in the browser, and state is stored per
 device. The optional AI describer below is the one feature that uses a key; add
