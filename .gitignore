@@ -6,7 +6,6 @@ out
 *.tsbuildinfo
 next-env.d.ts
 .DS_Store
-/freebuff-sites-build/
 /.open-next/
 /.wrangler/
 
