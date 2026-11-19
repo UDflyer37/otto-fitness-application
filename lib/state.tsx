@@ -17,6 +17,7 @@ import type {
   AppSettings,
   Exercise,
   ExerciseProgress,
+  HistoryEntry,
   Lift,
   LibraryExercise,
   Program,
@@ -216,6 +217,12 @@ type AppContextValue = {
   addLibraryExercise: (item: LibraryExercise) => void;
   removeLibraryExercise: (id: string) => void;
   replacePrograms: (programs: Program[]) => void;
+  restoreBackup: (backup: {
+    settings?: Partial<AppSettings>;
+    programs: Program[];
+    library?: LibraryExercise[];
+    history?: HistoryEntry[];
+  }) => void;
   resetPrograms: () => void;
   clearHistory: () => void;
   resetAll: () => void;
@@ -535,6 +542,41 @@ export function AppProvider({ children }: { children: ReactNode }) {
     [update],
   );
 
+  const restoreBackup = useCallback(
+    (backup: {
+      settings?: Partial<AppSettings>;
+      programs: Program[];
+      library?: LibraryExercise[];
+      history?: HistoryEntry[];
+    }) => {
+      update((current) => {
+        const settings = backup.settings
+          ? {
+              ...current.settings,
+              ...backup.settings,
+              maxes: { ...current.settings.maxes, ...(backup.settings.maxes ?? {}) },
+              plates: Array.isArray(backup.settings.plates)
+                ? backup.settings.plates
+                : current.settings.plates,
+            }
+          : current.settings;
+
+        return {
+          ...current,
+          settings,
+          programs: backup.programs,
+          library:
+            backup.library && backup.library.length
+              ? dedupeLibrary(backup.library)
+              : libraryFromPrograms(backup.programs),
+          history: Array.isArray(backup.history) ? backup.history : current.history,
+          session: null,
+        };
+      });
+    },
+    [update],
+  );
+
   const resetPrograms = useCallback(() => {
     update((current) => ({
       ...current,
@@ -580,6 +622,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
       addLibraryExercise,
       removeLibraryExercise,
       replacePrograms,
+      restoreBackup,
       resetPrograms,
       clearHistory,
       resetAll,
@@ -605,6 +648,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
       addLibraryExercise,
       removeLibraryExercise,
       replacePrograms,
+      restoreBackup,
       resetPrograms,
       clearHistory,
       resetAll,
