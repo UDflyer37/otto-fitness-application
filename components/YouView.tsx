@@ -33,11 +33,11 @@ export function YouView({
     settings,
     setMax,
     deleteProgram,
+    restoreBackup,
     replacePrograms,
     resetPrograms,
     clearHistory,
     resetAll,
-    updateSettings,
   } = useApp();
   const [showAllWorkouts, setShowAllWorkouts] = useState(false);
   const [weight, setWeight] = useState<number | null>(null);
@@ -115,6 +115,7 @@ export function YouView({
       exportedAt: new Date().toISOString(),
       settings: data.settings,
       programs: data.programs,
+      library: data.library,
       history: data.history,
     };
     const blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
@@ -136,6 +137,7 @@ export function YouView({
     try {
       const text = await file.text();
       let programs: Program[];
+      let backup: Partial<AppData> | null = null;
 
       if (looksLikeCsv(text)) {
         programs = parseWorkoutCsv(text);
@@ -146,7 +148,7 @@ export function YouView({
           raw.programs.every((program) => Array.isArray(program.exercises))
         ) {
           programs = raw.programs;
-          if (raw.settings) updateSettings(raw.settings);
+          backup = raw;
         } else {
           programs = importAnvilTables(raw);
         }
@@ -154,16 +156,29 @@ export function YouView({
 
       // Every movement gets its demo now, and the message says what was missing.
       const { programs: stamped, found, total } = stampDemos(programs);
-      replacePrograms(stamped);
+      if (backup) {
+        restoreBackup({
+          settings: backup.settings,
+          programs: stamped,
+          library: backup.library,
+          history: backup.history,
+        });
+      } else {
+        replacePrograms(stamped);
+      }
 
       const demos =
         found === total
           ? "Every movement has a demo."
           : `Demos for ${found} of ${total}. Add the rest in the builder.`;
+      const history =
+        backup && Array.isArray(backup.history)
+          ? ` Restored ${backup.history.length} history entr${backup.history.length === 1 ? "y" : "ies"}.`
+          : "";
       setImportMessage(
         `Imported ${stamped.length} workout${stamped.length === 1 ? "" : "s"}, ${total} movement${
           total === 1 ? "" : "s"
-        }. ${demos}`,
+        }. ${demos}${history}`,
       );
     } catch (error) {
       setImportError(error instanceof Error ? error.message : "Could not read that file.");

@@ -17,6 +17,7 @@ import type {
   AppSettings,
   Exercise,
   ExerciseProgress,
+  HistoryEntry,
   Lift,
   LibraryExercise,
   Program,
@@ -80,6 +81,15 @@ function dedupeLibrary(items: LibraryExercise[]): LibraryExercise[] {
   return [...seen.values()].sort((a, b) => a.name.localeCompare(b.name));
 }
 
+function normalizeSettings(settings: Partial<AppSettings> | undefined): AppSettings {
+  return {
+    ...DEFAULT_SETTINGS,
+    ...(settings ?? {}),
+    maxes: { ...DEFAULT_SETTINGS.maxes, ...(settings?.maxes ?? {}) },
+    plates: Array.isArray(settings?.plates) ? settings.plates : DEFAULT_SETTINGS.plates,
+  };
+}
+
 /**
  * Saves written before the copy pass used a dash separator between a program and
  * its stage ("Squatober <sep> W1D1", "Back Squat <sep> T1"). Retitle them on load
@@ -124,12 +134,7 @@ function loadData(): AppData {
 
     return {
       version: 2,
-      settings: {
-        ...DEFAULT_SETTINGS,
-        ...settings,
-        maxes: { ...DEFAULT_SETTINGS.maxes, ...(settings.maxes ?? {}) },
-        plates: Array.isArray(settings.plates) ? settings.plates : DEFAULT_SETTINGS.plates,
-      },
+      settings: normalizeSettings(settings),
       programs: retitled,
       library: library.map((item) => ({ ...item, name: retitle(item.name) })),
       session: migrateSession(parsed.session),
@@ -215,6 +220,12 @@ type AppContextValue = {
   deleteProgram: (id: string) => void;
   addLibraryExercise: (item: LibraryExercise) => void;
   removeLibraryExercise: (id: string) => void;
+  restoreBackup: (backup: {
+    settings?: Partial<AppSettings>;
+    programs: Program[];
+    library?: LibraryExercise[];
+    history?: HistoryEntry[];
+  }) => void;
   replacePrograms: (programs: Program[]) => void;
   resetPrograms: () => void;
   clearHistory: () => void;
@@ -523,6 +534,28 @@ export function AppProvider({ children }: { children: ReactNode }) {
     [update],
   );
 
+  const restoreBackup = useCallback(
+    (backup: {
+      settings?: Partial<AppSettings>;
+      programs: Program[];
+      library?: LibraryExercise[];
+      history?: HistoryEntry[];
+    }) => {
+      update((current) => ({
+        ...current,
+        settings: backup.settings ? normalizeSettings(backup.settings) : current.settings,
+        programs: backup.programs,
+        library:
+          Array.isArray(backup.library) && backup.library.length
+            ? dedupeLibrary(backup.library)
+            : libraryFromPrograms(backup.programs),
+        history: Array.isArray(backup.history) ? backup.history : current.history,
+        session: null,
+      }));
+    },
+    [update],
+  );
+
   const replacePrograms = useCallback(
     (programs: Program[]) => {
       update((current) => ({
@@ -579,6 +612,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
       deleteProgram,
       addLibraryExercise,
       removeLibraryExercise,
+      restoreBackup,
       replacePrograms,
       resetPrograms,
       clearHistory,
@@ -604,6 +638,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
       deleteProgram,
       addLibraryExercise,
       removeLibraryExercise,
+      restoreBackup,
       replacePrograms,
       resetPrograms,
       clearHistory,
