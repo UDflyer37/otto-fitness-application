@@ -216,6 +216,7 @@ type AppContextValue = {
   addLibraryExercise: (item: LibraryExercise) => void;
   removeLibraryExercise: (id: string) => void;
   replacePrograms: (programs: Program[]) => void;
+  restoreBackup: (backup: Partial<Pick<AppData, "settings" | "programs" | "history">>) => void;
   resetPrograms: () => void;
   clearHistory: () => void;
   resetAll: () => void;
@@ -535,6 +536,32 @@ export function AppProvider({ children }: { children: ReactNode }) {
     [update],
   );
 
+  const restoreBackup = useCallback(
+    (backup: Partial<Pick<AppData, "settings" | "programs" | "history">>) => {
+      update((current) => {
+        const programs =
+          Array.isArray(backup.programs) && backup.programs.length
+            ? backup.programs
+            : current.programs;
+        const settings = backup.settings ?? current.settings;
+        return {
+          ...current,
+          settings: {
+            ...DEFAULT_SETTINGS,
+            ...settings,
+            maxes: { ...DEFAULT_SETTINGS.maxes, ...(settings.maxes ?? {}) },
+            plates: Array.isArray(settings.plates) ? settings.plates : DEFAULT_SETTINGS.plates,
+          },
+          programs,
+          library: libraryFromPrograms(programs),
+          history: Array.isArray(backup.history) ? backup.history : current.history,
+          session: null,
+        };
+      });
+    },
+    [update],
+  );
+
   const resetPrograms = useCallback(() => {
     update((current) => ({
       ...current,
@@ -580,6 +607,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
       addLibraryExercise,
       removeLibraryExercise,
       replacePrograms,
+      restoreBackup,
       resetPrograms,
       clearHistory,
       resetAll,
@@ -605,6 +633,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
       addLibraryExercise,
       removeLibraryExercise,
       replacePrograms,
+      restoreBackup,
       resetPrograms,
       clearHistory,
       resetAll,

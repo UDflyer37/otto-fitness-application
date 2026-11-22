@@ -34,6 +34,7 @@ export function YouView({
     setMax,
     deleteProgram,
     replacePrograms,
+    restoreBackup,
     resetPrograms,
     clearHistory,
     resetAll,
@@ -136,17 +137,18 @@ export function YouView({
     try {
       const text = await file.text();
       let programs: Program[];
+      let backup: (Partial<AppData> & { app?: unknown }) | null = null;
 
       if (looksLikeCsv(text)) {
         programs = parseWorkoutCsv(text);
       } else {
-        const raw = JSON.parse(text) as Partial<AppData> & { programs?: Program[] };
+        const raw = JSON.parse(text) as Partial<AppData> & { app?: unknown; programs?: Program[] };
+        backup = raw;
         if (
           Array.isArray(raw.programs) &&
           raw.programs.every((program) => Array.isArray(program.exercises))
         ) {
           programs = raw.programs;
-          if (raw.settings) updateSettings(raw.settings);
         } else {
           programs = importAnvilTables(raw);
         }
@@ -154,7 +156,12 @@ export function YouView({
 
       // Every movement gets its demo now, and the message says what was missing.
       const { programs: stamped, found, total } = stampDemos(programs);
-      replacePrograms(stamped);
+      if (backup?.app === "Otto Fitness" && Array.isArray(backup.history)) {
+        restoreBackup({ settings: backup.settings, programs: stamped, history: backup.history });
+      } else {
+        if (backup?.settings) updateSettings(backup.settings);
+        replacePrograms(stamped);
+      }
 
       const demos =
         found === total
