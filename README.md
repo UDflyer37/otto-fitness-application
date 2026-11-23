@@ -199,11 +199,27 @@ development):
 | --- | --- |
 | `OPENLLM_ENDPOINT` + `OPENLLM_API_KEY` | OpenAI-compatible gateway endpoint and key |
 | `OPENAI_API_KEY` | Used directly against `api.openai.com` when no gateway is set |
-| `OPENLLM_MODEL` | Optional model id; defaults to `gpt-4o-mini` |
+| `OPENLLM_MODEL` or `OPENAI_MODEL` | Optional model id; defaults to `gpt-4o-mini` |
 
-Nothing else changes: the draft it returns is editable exactly like a locally parsed one. Note that
-the route is public if the deployment is public. Keep the repository and deployment private, or
-enable Vercel deployment protection, before adding a key.
+Nothing else changes: the draft it returns is editable exactly like a locally parsed one. The route
+always keeps a local parser fallback: missing keys, non-OK model responses, timeouts and invalid
+JSON all return the deterministic result instead of breaking the builder.
+
+Operational constraints:
+
+- The client posts only the description text and the exercise library to
+  `app/api/describe-workout/route.ts`; the route trims the text to 1,200 characters and includes at
+  most 80 known exercise names in the model prompt.
+- `OPENLLM_ENDPOINT` + `OPENLLM_API_KEY` take precedence. If either is missing, `OPENAI_API_KEY`
+  uses `https://api.openai.com/v1/chat/completions`.
+- The model is asked for JSON only. Returned workouts are normalized back into the local draft shape:
+  names are length-limited, percentages must be 20-130, lifts must be squat/bench/deadlift/press,
+  and at most 10 returned movements are accepted.
+- The request times out after 20 seconds. Users should still review sets, reps and percentages in
+  the builder because AI output is treated as a draft.
+
+Note that the route is public if the deployment is public. Keep the repository and deployment
+private, or enable Vercel deployment protection, before adding a key.
 
 ## Writing your own workouts
 
