@@ -34,10 +34,10 @@ export function YouView({
     setMax,
     deleteProgram,
     replacePrograms,
+    restoreBackup,
     resetPrograms,
     clearHistory,
     resetAll,
-    updateSettings,
   } = useApp();
   const [showAllWorkouts, setShowAllWorkouts] = useState(false);
   const [weight, setWeight] = useState<number | null>(null);
@@ -115,6 +115,8 @@ export function YouView({
       exportedAt: new Date().toISOString(),
       settings: data.settings,
       programs: data.programs,
+      library: data.library,
+      session: data.session,
       history: data.history,
     };
     const blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
@@ -136,17 +138,26 @@ export function YouView({
     try {
       const text = await file.text();
       let programs: Program[];
+      let backup: Partial<AppData> | null = null;
 
       if (looksLikeCsv(text)) {
         programs = parseWorkoutCsv(text);
       } else {
-        const raw = JSON.parse(text) as Partial<AppData> & { programs?: Program[] };
+        const raw = JSON.parse(text) as Partial<AppData> & { app?: unknown; programs?: Program[] };
         if (
           Array.isArray(raw.programs) &&
           raw.programs.every((program) => Array.isArray(program.exercises))
         ) {
           programs = raw.programs;
-          if (raw.settings) updateSettings(raw.settings);
+          if (
+            raw.app === "Otto Fitness" ||
+            raw.settings ||
+            Array.isArray(raw.history) ||
+            Array.isArray(raw.library) ||
+            "session" in raw
+          ) {
+            backup = raw;
+          }
         } else {
           programs = importAnvilTables(raw);
         }
@@ -154,7 +165,11 @@ export function YouView({
 
       // Every movement gets its demo now, and the message says what was missing.
       const { programs: stamped, found, total } = stampDemos(programs);
-      replacePrograms(stamped);
+      if (backup) {
+        restoreBackup({ ...backup, programs: stamped });
+      } else {
+        replacePrograms(stamped);
+      }
 
       const demos =
         found === total
