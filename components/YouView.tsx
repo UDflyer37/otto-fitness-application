@@ -34,10 +34,10 @@ export function YouView({
     setMax,
     deleteProgram,
     replacePrograms,
+    restoreBackup,
     resetPrograms,
     clearHistory,
     resetAll,
-    updateSettings,
   } = useApp();
   const [showAllWorkouts, setShowAllWorkouts] = useState(false);
   const [weight, setWeight] = useState<number | null>(null);
@@ -115,6 +115,7 @@ export function YouView({
       exportedAt: new Date().toISOString(),
       settings: data.settings,
       programs: data.programs,
+      library: data.library,
       history: data.history,
     };
     const blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
@@ -146,7 +147,27 @@ export function YouView({
           raw.programs.every((program) => Array.isArray(program.exercises))
         ) {
           programs = raw.programs;
-          if (raw.settings) updateSettings(raw.settings);
+          const { programs: stamped, found, total } = stampDemos(programs);
+          const history = Array.isArray(raw.history) ? raw.history : undefined;
+          restoreBackup({
+            settings: raw.settings,
+            programs: stamped,
+            library: Array.isArray(raw.library) ? raw.library : undefined,
+            history,
+          });
+
+          const demos =
+            found === total
+              ? "Every movement has a demo."
+              : `Demos for ${found} of ${total}. Add the rest in the builder.`;
+          setImportMessage(
+            `Restored ${stamped.length} workout${stamped.length === 1 ? "" : "s"}${
+              history
+                ? `, ${history.length} session${history.length === 1 ? "" : "s"}`
+                : ""
+            }, ${total} movement${total === 1 ? "" : "s"}. ${demos}`,
+          );
+          return;
         } else {
           programs = importAnvilTables(raw);
         }

@@ -17,6 +17,7 @@ import type {
   AppSettings,
   Exercise,
   ExerciseProgress,
+  HistoryEntry,
   Lift,
   LibraryExercise,
   Program,
@@ -80,6 +81,16 @@ function dedupeLibrary(items: LibraryExercise[]): LibraryExercise[] {
   return [...seen.values()].sort((a, b) => a.name.localeCompare(b.name));
 }
 
+function normalizeSettings(raw?: Partial<AppSettings>): AppSettings {
+  const settings = raw ?? DEFAULT_SETTINGS;
+  return {
+    ...DEFAULT_SETTINGS,
+    ...settings,
+    maxes: { ...DEFAULT_SETTINGS.maxes, ...(settings.maxes ?? {}) },
+    plates: Array.isArray(settings.plates) ? settings.plates : DEFAULT_SETTINGS.plates,
+  };
+}
+
 /**
  * Saves written before the copy pass used a dash separator between a program and
  * its stage ("Squatober <sep> W1D1", "Back Squat <sep> T1"). Retitle them on load
@@ -124,12 +135,7 @@ function loadData(): AppData {
 
     return {
       version: 2,
-      settings: {
-        ...DEFAULT_SETTINGS,
-        ...settings,
-        maxes: { ...DEFAULT_SETTINGS.maxes, ...(settings.maxes ?? {}) },
-        plates: Array.isArray(settings.plates) ? settings.plates : DEFAULT_SETTINGS.plates,
-      },
+      settings: normalizeSettings(settings),
       programs: retitled,
       library: library.map((item) => ({ ...item, name: retitle(item.name) })),
       session: migrateSession(parsed.session),
@@ -194,6 +200,13 @@ export function isExerciseDone(exercise: Exercise, progress: ExerciseProgress) {
   return progress.skipped || isExerciseComplete(exercise, progress);
 }
 
+type BackupPayload = {
+  settings?: Partial<AppSettings>;
+  programs: Program[];
+  library?: LibraryExercise[];
+  history?: HistoryEntry[];
+};
+
 type AppContextValue = {
   data: AppData;
   hydrated: boolean;
@@ -216,6 +229,7 @@ type AppContextValue = {
   addLibraryExercise: (item: LibraryExercise) => void;
   removeLibraryExercise: (id: string) => void;
   replacePrograms: (programs: Program[]) => void;
+  restoreBackup: (backup: BackupPayload) => void;
   resetPrograms: () => void;
   clearHistory: () => void;
   resetAll: () => void;
@@ -535,6 +549,28 @@ export function AppProvider({ children }: { children: ReactNode }) {
     [update],
   );
 
+  const restoreBackup = useCallback(
+    ({
+      settings,
+      programs,
+      library,
+      history,
+    }: BackupPayload) => {
+      update((current) => ({
+        ...current,
+        settings: normalizeSettings(settings ?? current.settings),
+        programs,
+        library:
+          Array.isArray(library) && library.length
+            ? dedupeLibrary(library)
+            : libraryFromPrograms(programs),
+        history: Array.isArray(history) ? history.slice(0, 50) : current.history,
+        session: null,
+      }));
+    },
+    [update],
+  );
+
   const resetPrograms = useCallback(() => {
     update((current) => ({
       ...current,
@@ -580,6 +616,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
       addLibraryExercise,
       removeLibraryExercise,
       replacePrograms,
+      restoreBackup,
       resetPrograms,
       clearHistory,
       resetAll,
@@ -605,6 +642,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
       addLibraryExercise,
       removeLibraryExercise,
       replacePrograms,
+      restoreBackup,
       resetPrograms,
       clearHistory,
       resetAll,
