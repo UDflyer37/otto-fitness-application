@@ -8,6 +8,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "test": "vitest run",
     "start": "next start",
     "typecheck": "tsc --noEmit",
     "icons": "node scripts/generate-icons.mjs",
@@ -24,6 +25,7 @@
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
     "typescript": "^5.9.0",
+    "vitest": "^5.1.2",
     "wrangler": "4.148.0"
   }
 }
