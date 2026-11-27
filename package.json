@@ -11,7 +11,8 @@
     "start": "next start",
     "typecheck": "tsc --noEmit",
     "icons": "node scripts/generate-icons.mjs",
-    "moves": "node scripts/fetch-move-art.mjs"
+    "moves": "node scripts/fetch-move-art.mjs",
+    "test": "vitest run"
   },
   "dependencies": {
     "next": "16.4.3",
@@ -24,6 +25,7 @@
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
     "typescript": "^5.9.0",
+    "vitest": "^5.1.2",
     "wrangler": "4.148.0"
   }
 }
